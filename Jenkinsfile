@@ -10,9 +10,12 @@ pipeline {
         timeout(time:10, unit:'MINUTES')
     }
 
-    triggers{
-        cron("*/5 * * * *")
-    }
+    // triggers{
+    //     cron("*/5 * * * *")
+
+    //     pollSCM("*/5 * * * *")
+    //     upstream(upstreamProjects:'job1,job2', threshold: hudson.model.Result.SUCCESS)
+    // }
 
     parameters{
         string(name:'NAME', defaultValue:'Guest', description:'What is your name ?')
@@ -102,6 +105,15 @@ pipeline {
         }
 
         stage('Deploy') {
+            input{
+                message "Can we deploy?"
+                ok "Yes, of course"
+                submitter "paldi"
+                parameters{
+                    choice(name:"TARGET_ENV", choices:['DEV', 'QA', 'PROD'], description: "Which Environment ?")
+                }
+            }
+
             agent {
                 node{
                     label "linux && java17"
