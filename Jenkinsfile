@@ -17,11 +17,14 @@ pipeline {
             }
             steps{
                 echo "Author : ${AUTHOR}"
-                echo "App User  : ${APP_USR}"
-                echo "App Password : ${APP_PSW}"
+                echo "Email  : ${EMAIL}"
+                echo "WEB : ${WEB}"
                 echo "Start Job : ${env.JOB_NAME}"
                 echo "Start Build : ${env.BUILD_NUMBER}"
                 echo "Branch Name : ${env.BRANCH_NAME}"
+                echo "App User  : ${APP_USR}"
+                echo "App Password : ${APP_PSW}"
+                sh('echo "App Password : $APP_PSW" > "rahasia.txt"')
             }
         }
 
