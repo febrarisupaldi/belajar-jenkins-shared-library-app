@@ -9,6 +9,14 @@ pipeline {
         disableConcurrentBuilds()
         timeout(time:10, unit:'MINUTES')
     }
+
+    parameters{
+        string(name:'NAME', defaultValue:'Guest', description:'What is your name ?')
+        text(name:'DESCRIPTION', defaultValue:'Guest', description:'Tell me about you')
+        booleanParam(name:'DEPLOY', defaultValue:false, description:'Need to Deploy?')
+        choice(name:'SOCIAL_MEDIA', choices:['Instagram', 'Facebook', 'Twitter'], description:'Which social media')
+        password(name:'SECRET', defaultValue:'', description:'Encryot Key')
+    }
     stages {
         stage('Prepare'){
             environment{
@@ -29,6 +37,22 @@ pipeline {
                 echo "App User  : ${APP_USR}"
                 echo "App Password : ${APP_PSW}"
                 sh('echo "App Password : $APP_PSW" > "rahasia.txt"')
+            }
+        }
+
+        stage('Parameter'){
+            agent {
+                node{
+                    label "linux && java17"
+                }
+            }
+
+            steps{
+                echo "Hello ${params.NAME}"
+                echo "You are ${params.DESCRIPTION}"
+                echo "Need to deploy ${params.DEPLOY}"
+                echo "Your social media is ${params.SOCIAL_MEDIA}"
+                echo "Your secret ${params.SECRET}"
             }
         }
 
