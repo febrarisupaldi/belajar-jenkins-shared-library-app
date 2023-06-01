@@ -16,6 +16,7 @@ pipeline {
     //     pollSCM("*/5 * * * *")
     //     upstream(upstreamProjects:'job1,job2', threshold: hudson.model.Result.SUCCESS)
     // }
+    
 
     parameters{
         string(name:'NAME', defaultValue:'Guest', description:'What is your name ?')
@@ -24,7 +25,31 @@ pipeline {
         choice(name:'SOCIAL_MEDIA', choices:['Instagram', 'Facebook', 'Twitter'], description:'Which social media')
         password(name:'SECRET', defaultValue:'', description:'Encryot Key')
     }
+    
     stages {
+
+        stage("Preparation"){
+            agent {
+                node{
+                    label "linux && java17"
+                }
+            }
+
+            stages{
+                stage("Prepare Java"){
+                    steps{
+                        echo "Prepare Java"
+                    }
+                }
+
+                stage("Prepare Maven"){
+                    steps{
+                        echo "Prepare Maven"
+                    }
+                }
+            }
+        }
+
         stage('Prepare'){
             environment{
                 APP = credentials("paldi_rahasia")
