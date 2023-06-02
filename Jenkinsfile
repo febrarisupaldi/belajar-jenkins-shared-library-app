@@ -15,6 +15,14 @@ pipeline{
             }
         }
 
+        stage("Maven Compile"){
+            steps{
+                script{
+                    maven("clean compile")
+                }
+            }
+        }
+
         stage("Hello Groovy"){
             steps{
                 script{
