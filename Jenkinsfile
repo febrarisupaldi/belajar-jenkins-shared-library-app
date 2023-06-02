@@ -5,6 +5,7 @@ import programmerzamannow.jenkins.Output;
 pipeline{
     agent any
     stages{
+        
         stage("Global Variable"){
             steps{
                 script{
@@ -19,6 +20,17 @@ pipeline{
             steps{
                 script{
                     maven(["clean","compile","test"])
+                }
+            }
+        }
+
+        stage("Hello Person"){
+            steps{
+                script{
+                    hello.person([
+                        firstName:"Febrari",
+                        lastName:"Supaldi"
+                    ])
                 }
             }
         }
