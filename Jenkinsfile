@@ -16,6 +16,16 @@ pipeline{
             }
         }
 
+        stage("Library Resource"){
+            steps{
+                script{
+                    def config = libraryResource("config/build.json")
+                    echo(config)
+                }
+            }
+        }
+        
+
         stage("Maven Compile"){
             steps{
                 script{
