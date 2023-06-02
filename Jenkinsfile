@@ -1,14 +1,12 @@
-@Library("belajar-jenkins-shared-library@main") _
+@Library("belajar-jenkins-shared-library@master") _
 
 pipeline{
     agent any
     stages{
-        stage{
-            stage("Hello World"){
-                steps{
-                    script{
-                        hello.world()
-                    }
+        stage("Hello World"){
+            steps{
+                script{
+                    hello.world()
                 }
             }
         }
